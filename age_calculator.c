@@ -66,6 +66,9 @@ int age_cal(struct date *dt) {
     m = (dt+0)->mm;
     y = (dt+0)->yy;
 
+    if(y>(dt+1)->yy || m>(dt+1)->mm || d>(dt+1)->dd){
+        return -99;
+    }
     int no_days = 0; // return the no of days b/w the two years
     while(!(d == (dt+1)->dd && m == (dt+1)->mm && y == (dt+1)->yy)) {
         if ((y%4 == 0 && y%100 != 0)||(y%400 == 0)) // leap year
@@ -120,6 +123,10 @@ int main(){
     acessing_todays_date(dt);
 
     int difftime = age_cal(dt);
+    if(difftime==-99){
+        printf("~~~~~~~~    ERROR! INVALID DOB\n");
+        return 0;
+    }
     printf("the diff (in days) = %d\n", difftime);
     struct date age;
     // converting the days into year, month, days
